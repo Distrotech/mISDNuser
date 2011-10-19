@@ -6,7 +6,7 @@ SUBMINOR=9.1
 #
 # Set this to your local copy of mISDN
 #
-MISDNDIR := /usr/src/mqueue/mISDN
+MISDNDIR := $(PWD)/../mISDN
 
 PWD=$(shell pwd)
 #
@@ -108,7 +108,7 @@ voiparchiv: archiv
 
 
 test_misdn_includes:
-	@if ! echo "#include <linux/mISDNif.h>" | gcc -I$(MISDNINCLUDEDIR) -C -E - >/dev/null ; then echo -e "\n\nYou either don't seem to have installed mISDN properly\nor you haven't set the MISDNDIR variable in this very Makefile.\n\nPlease either install mISDN or set the MISDNDIR properly\n"; exit 1; fi
+	@if ! echo "#include <mISDN/mISDNif.h>" | gcc -I$(MISDNINCLUDEDIR) -C -E - >/dev/null ; then echo -e "\n\nYou either don't seem to have installed mISDN properly\nor you haven't set the MISDNDIR variable in this very Makefile.\n\nPlease either install mISDN or set the MISDNDIR properly\n"; exit 1; fi
 
 
 VERSION:
