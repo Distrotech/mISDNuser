@@ -7,14 +7,14 @@ RANLIB = ranlib
 SUPPSERV_OBJ = asn1.o asn1_enc.o asn1_generic.o asn1_aoc.o asn1_basic_service.o asn1_comp.o asn1_diversion.o asn1_address.o fac.o
 SUPPSERV_PICOBJ = $(SUPPSERV_OBJ:%.o=%.lo)
 
-all: libsuppserv.a libsuppserv_pic.a libsuppserv.so
+all: libsuppserv.a libsuppserv_pic.a libsuppserv-1.so
 
 main: $(SUPPSERVOBJ)
 
 install:
 	install -m 644 libsuppserv.a $(INSTALL_PREFIX)/usr/lib
 	install -m 644 libsuppserv_pic.a $(INSTALL_PREFIX)/usr/lib
-	install -m 644 libsuppserv.so $(INSTALL_PREFIX)/usr/lib
+	install -m 644 libsuppserv-1.so $(INSTALL_PREFIX)/usr/lib
 	cp *.h $(INSTALL_PREFIX)/usr/include/mISDNuser/
 
 libsuppserv_pic.a: $(SUPPSERV_PICOBJ)
@@ -25,7 +25,7 @@ libsuppserv.a: $(SUPPSERV_OBJ)
 	$(AR) cru $@ $<
 	$(RANLIB) $@
 
-libsuppserv.so: $(SUPPSERV_OBJ)
+libsuppserv-1.so: $(SUPPSERV_OBJ)
 	$(CC) -shared -Xlinker -x -o $@ $^
 
 

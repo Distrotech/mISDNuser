@@ -2,12 +2,12 @@ CC = gcc
 AR = ar
 RANLIB = ranlib
 
-all: libisdnnet.a libisdnnet_pic.a libisdnnet.so
+all: libisdnnet.a libisdnnet_pic.a libisdnnet-1.so
 
 install:
 	install -m 644 libisdnnet.a $(INSTALL_PREFIX)/usr/lib
 	install -m 644 libisdnnet_pic.a $(INSTALL_PREFIX)/usr/lib
-	install -m 644 libisdnnet.so $(INSTALL_PREFIX)/usr/lib
+	install -m 644 libisdnnet-1.so $(INSTALL_PREFIX)/usr/lib
 	cp *.h $(INSTALL_PREFIX)/usr/include/mISDNuser/
 
 ISDNNET_OBJ = net_if.o isdn_debug.o isdn_msg.o fsm.o net_l2.o tei.o net_l3.o \
@@ -27,7 +27,7 @@ libisdnnet.a: $(ISDNNET_OBJ)
 	$(AR) cru $@ $^
 	$(RANLIB) $@
 
-libisdnnet.so: $(ISDNNET_OBJ)
+libisdnnet-1.so: $(ISDNNET_OBJ)
 	$(CC) $(CFLAGS) -shared -Xlinker -x -o $@ $^
 
 .c.o:
@@ -62,7 +62,7 @@ g711.o g711.lo: g711.c $(INCLUDEDIR)/g711.h
 
 clean:
 	rm -f *.o *.lo *~ DEADJOE 
-	rm -f libisdnnet.a libisdnnet_pic.a libisdnnet.so
+	rm -f libisdnnet.a libisdnnet_pic.a libisdnnet-1.so
 
 distclean: clean
 	rm -f *.a

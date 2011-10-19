@@ -1,0 +1,50 @@
+Index: channels/misdn/Makefile
+===================================================================
+--- channels/misdn/Makefile	(revision 340107)
++++ channels/misdn/Makefile	(working copy)
+@@ -11,7 +11,7 @@
+ 	$(CC) $(CFLAGS) -c -o $@ $<
+ 
+ portinfo: portinfo.o
+-	$(CC) -o $@ $^ -lisdnnet -lmISDN -lpthread
++	$(CC) -o $@ $^ -lisdnnet-1 -lmISDN -lpthread
+ 
+ clean:
+ 	rm -rf *.a *.o *.so portinfo *.i
+Index: configure.ac
+===================================================================
+--- configure.ac	(revision 340107)
++++ configure.ac	(working copy)
+@@ -383,7 +383,8 @@
+ AST_EXT_LIB_SETUP([IMAP_TK], [UW IMAP Toolkit], [imap])
+ AST_EXT_LIB_SETUP([INOTIFY], [inotify support], [inotify])
+ AST_EXT_LIB_SETUP([IODBC], [iODBC], [iodbc])
+-AST_EXT_LIB_SETUP([ISDNNET], [ISDN4Linux], [isdnnet])
++AST_EXT_LIB_SETUP([ISDNNET], [ISDN4Linux], [isdnnet-1])
++AST_EXT_LIB_SETUP([SUPPSERV], [mISDN Supplemental Services], [suppserv-1])
+ AST_EXT_LIB_SETUP([JACK], [Jack Audio Connection Kit], [jack])
+ AST_EXT_LIB_SETUP([KQUEUE], [kqueue support], [kqueue])
+ AST_EXT_LIB_SETUP([LDAP], [OpenLDAP], [ldap])
+@@ -444,7 +425,6 @@
+ AST_EXT_LIB_SETUP([SQLITE3], [SQLite], [sqlite3])
+ AST_EXT_LIB_SETUP([SRTP], [Secure RTP], [srtp])
+ AST_EXT_LIB_SETUP([OPENSSL], [OpenSSL Secure Sockets Layer], [ssl])
+-AST_EXT_LIB_SETUP([SUPPSERV], [mISDN Supplemental Services], [suppserv])
+ AST_EXT_LIB_SETUP([FREETDS], [FreeTDS], [tds])
+ AST_EXT_LIB_SETUP([TERMCAP], [Termcap], [termcap])
+ AST_EXT_LIB_SETUP([TIMERFD], [timerfd], [timerfd])
+@@ -1715,11 +1695,11 @@
+ AST_EXT_LIB_CHECK([MISDN], [mISDN], [mISDN_open], [mISDNuser/mISDNlib.h])
+ 
+ if test "${PBX_MISDN}" = 1; then
+-   AST_EXT_LIB_CHECK([ISDNNET], [isdnnet], [init_manager], [mISDNuser/isdn_net.h], [-lmISDN -lpthread])
+-   AST_EXT_LIB_CHECK([SUPPSERV], [suppserv], [encodeFac], [mISDNuser/suppserv.h])
++   AST_EXT_LIB_CHECK([ISDNNET], [isdnnet-1], [init_manager], [mISDNuser/isdn_net.h], [-lmISDN -lpthread])
++   AST_EXT_LIB_CHECK([SUPPSERV], [suppserv-1], [encodeFac], [mISDNuser/suppserv.h])
+    AST_C_DEFINE_CHECK([MISDN_FAC_RESULT], [Fac_RESULT], [mISDNuser/suppserv.h])
+    AST_C_DEFINE_CHECK([MISDN_FAC_ERROR], [Fac_ERROR], [mISDNuser/suppserv.h])
+-   AC_CHECK_HEADER([linux/mISDNdsp.h], [AC_DEFINE_UNQUOTED([MISDN_1_2], 1, [Build chan_misdn for mISDN 1.2 or later.])])
++   AC_CHECK_HEADER([mISDN/mISDNdsp.h], [AC_DEFINE_UNQUOTED([MISDN_1_2], 1, [Build chan_misdn for mISDN 1.2 or later.])])
+    AC_CHECK_MEMBER([Q931_info_t.redirect_dn], [], [PBX_MISDN=0], [#include <mISDNuser/mISDNlib.h>])
+ fi
+ 
