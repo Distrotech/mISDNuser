@@ -28,7 +28,7 @@ export INCLUDEDIR
 LIBDIR=/usr/lib
 export LIBDIR
 
-CFLAGS:= -g -Wall -I $(INCLUDEDIR) -I $(MISDNINCLUDEDIR)
+CFLAGS:= -g -I $(INCLUDEDIR) -I $(MISDNINCLUDEDIR)
 CFLAGS+= -D CLOSE_REPORT=1
 
 #disable this if your system does not support PIC (position independent code)
