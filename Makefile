@@ -13,7 +13,8 @@ PWD=$(shell pwd)
 # Change this to create an install prefix for the shared libs, programms and
 # includes
 #
-INSTALL_PREFIX := /
+DESTDIR = /
+INSTALL_PREFIX := $(DESTDIR)
 export INSTALL_PREFIX
 
 MISDNINCLUDEDIR := $(MISDNDIR)/include
